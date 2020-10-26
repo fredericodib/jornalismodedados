@@ -1,0 +1,28 @@
+{% load cms_tags menu_tags sekizai_tags static %}
+<!doctype html>
+<html>
+	<head>
+			<title>{% block title %}This is my new project home page{% endblock title %}</title>
+			<meta charset="utf-8" />
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+			<link rel="stylesheet" href="{% static "css/theme.css" %}">
+			<link rel="stylesheet" href="{% static "css/subscribe.css" %}">
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+			{% render_block "css" %}
+	</head>
+	<body class="sb-nav-fixed">
+		{% cms_toolbar %}
+
+		<div>
+			{% block content %}{% endblock content %}
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+		<script src="{% static "js/theme.js" %}"></script>
+		{% render_block "js" %}
+	</body>
+	
+	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> -->
+</html>

@@ -1,0 +1,10 @@
+iframe,
+video {
+  width: 100% !important;
+  height: 600px !important;
+}
+
+/* img {
+  display: block;
+  width: 100%;
+} */

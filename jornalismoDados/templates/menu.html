@@ -1,0 +1,31 @@
+{% load menu_tags %}
+
+{% for child in children %}
+  {% if child.children %}
+    <a
+      class="nav-link collapsed"
+      href="#"
+      data-toggle="collapse"
+      data-target="#collapse{{ child.id }}"
+      aria-expanded="false"
+      aria-controls="collapse{{ child.id }}"
+    >
+      {{ child.get_menu_title }}
+      <div class="sb-sidenav-collapse-arrow">
+        <i class="fas fa-angle-down"></i>
+      </div>
+    </a>
+    <div
+      class="collapse"
+      id="collapse{{ child.id }}"
+      aria-labelledby="headingOne"
+      data-parent="#sidenavAccordion"
+    >
+      <nav class="sb-sidenav-menu-nested nav">
+        {% show_menu from_level to_level extra_inactive extra_active template "" "" child %}
+      </nav>
+    </div>
+  {% else %}
+    <a class="nav-link " href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+	{% endif %}
+{% endfor %}
