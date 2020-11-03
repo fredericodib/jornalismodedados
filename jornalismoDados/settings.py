@@ -1,6 +1,7 @@
-import os  # isort:skip
+# -*- coding: utf-8 -*-
+import os
 gettext = lambda s: s
-DATA_DIR = os.path.dirname(os.path.dirname(__file__))
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 """
 Django settings for jornalismoDados project.
 
@@ -46,6 +47,12 @@ WSGI_APPLICATION = 'jornalismoDados.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 
@@ -123,6 +130,27 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_DIRS = [
+    # The docs say it should be absolute path: PROJECT_PATH is precisely one.
+    # Life is wonderful!
+    os.path.join(PROJECT_PATH, "templates"),
+]
+
+CMS_TEMPLATES = [
+    ['base.html', 'Template One'],
+]
+
+TEMPLATE_CONTEXT_PROCESSORS = [
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.request',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'cms.context_processors.media',
+    'sekizai.context_processors.sekizai',
+]
+
+
 
 MIDDLEWARE = [
     'cms.middleware.utils.ApphookReloadMiddleware',
@@ -132,6 +160,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.doc.XViewMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
@@ -151,11 +180,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'cms',
     'menus',
+    'mptt',
     'sekizai',
     'treebeard',
     'djangocms_text_ckeditor',
     'filer',
+    'south',
     'easy_thumbnails',
+    'cms.plugins.file',
+	'cms.plugins.flash',
+	'cms.plugins.googlemap',
+	'cms.plugins.link',
+	'cms.plugins.picture',
+	'cms.plugins.snippet',
+	'cms.plugins.teaser',
+	'cms.plugins.text',
+	'cms.plugins.video',
+	'cms.plugins.twitter',
+	'storages',
     'djangocms_bootstrap4',
     'djangocms_bootstrap4.contrib.bootstrap4_alerts',
     'djangocms_bootstrap4.contrib.bootstrap4_badge',
