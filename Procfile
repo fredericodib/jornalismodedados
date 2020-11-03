@@ -1,1 +1,1 @@
-web: gunicorn jornalismoDados.wsgi
+web: gunicorn jornalismoDados.wsgi --log-file
